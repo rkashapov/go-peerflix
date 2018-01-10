@@ -264,11 +264,7 @@ func (c Client) ReadyForPlayback() bool {
 // GetFile is an http handler to serve the biggest file managed by the client.
 func (c Client) GetFile(w http.ResponseWriter, r *http.Request) {
 	target := c.getLargestFile()
-	entry, err := NewFileReader(target)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
+	entry := target.NewReader()
 
 	defer func() {
 		if err := entry.Close(); err != nil {
