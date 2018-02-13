@@ -116,7 +116,7 @@ func NewClient(cfg ClientConfig) (client Client, err error) {
 		t.DownloadAll()
 
 		// Prioritize first 5% of the file.
-		client.getLargestFile().PrioritizeRegion(0, int64(t.NumPieces()/100*5))
+		client.getLargestFile().DownloadRegion(0, int64(t.NumPieces()/100*5))
 	}()
 
 	go client.addBlocklist()
